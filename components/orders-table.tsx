@@ -18,11 +18,13 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
               <TableHeadItem text="Status" className="table-cell" />
               <TableHeadItem
                 text="Data"
-                className="table-cell cursor-pointer justify-end items-center gap-1"
+                className="table-cell cursor-pointer"
+                value="order_date"
               />
               <TableHeadItem
                 text="Valor"
-                className="text-right cursor-pointer flex justify-end items-center gap-1"
+                className="text-right cursor-pointer flex justify-end "
+                value="amount_in_cents"
               />
             </TableRow>
           </TableHeader>
