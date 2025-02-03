@@ -1,6 +1,7 @@
 import { OrderType } from "@/@types";
 import { Badge } from "./ui/badge";
 import { TableRow, TableCell } from "./ui/table";
+import { convertCentsToReais } from "@/utils";
 
 interface OrderTableItemProps {
   order: OrderType;
@@ -25,7 +26,9 @@ export const OrderTableItem = ({ order }: OrderTableItemProps) => {
       <TableCell className="hidden md:table-cell">
         {order.order_date.toString()}
       </TableCell>
-      <TableCell className="text-right">{order.amount_in_cents}</TableCell>
+      <TableCell className="text-right">
+        {convertCentsToReais(order.amount_in_cents)}
+      </TableCell>
     </TableRow>
   );
 };
