@@ -1,6 +1,8 @@
 export const deleteQueryParam = (key: string) => {
-  const params = new URLSearchParams(window.location.search);
-  params.delete(key);
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+    params.delete(key);
 
-  return params;
+    return params;
+  }
 };
