@@ -47,12 +47,18 @@ export const OrdersContent = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="">
-          <OrdersTable orders={ordersData?.data} />
-          <div className="mt-8">
-            <Pagination links={ordersData?.meta.links} />
-          </div>
-        </div>
+        <>
+          {ordersData?.data.length && ordersData.meta ? (
+            <div className="">
+              <OrdersTable orders={ordersData?.data} />
+              <div className="mt-8">
+                <Pagination links={ordersData?.meta.links} />
+              </div>
+            </div>
+          ) : (
+            <p>Nenhum resultado foi encontrado.</p>
+          )}
+        </>
       )}
     </>
   );
