@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 import { getOrderData } from "@/services";
 import { IOrderData } from "@/@types";
 import { setQueryParam } from "@/utils";
+import { Loading } from "./loading";
 
 export const OrdersContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const [ordersData, setOrdersData] = useState<IOrderData>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!searchParams.has("page")) {
@@ -21,8 +23,13 @@ export const OrdersContent = () => {
     }
 
     async function fetchOrdersData() {
-      const res = await getOrderData(`${searchParams}`);
-      setOrdersData(res);
+      try {
+        setLoading(true);
+        const res = await getOrderData(`${searchParams}`);
+        setOrdersData(res);
+      } finally {
+        setLoading(false);
+      }
     }
 
     fetchOrdersData();
@@ -37,10 +44,16 @@ export const OrdersContent = () => {
 
   return (
     <>
-      <OrdersTable orders={ordersData?.data} />
-      <div className="mt-8">
-        <Pagination links={ordersData?.meta.links} />
-      </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="">
+          <OrdersTable orders={ordersData?.data} />
+          <div className="mt-8">
+            <Pagination links={ordersData?.meta.links} />
+          </div>
+        </div>
+      )}
     </>
   );
 };

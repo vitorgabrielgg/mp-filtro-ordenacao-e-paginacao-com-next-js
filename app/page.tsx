@@ -1,15 +1,13 @@
-import FilterDropdown from '@/components/filter-dropdown';
-import OrdersTable from '@/components/orders-table';
-import Pagination from '@/components/pagination';
-import SearchInput from '@/components/search-input';
-
+import FilterDropdown from "@/components/filter-dropdown";
+import { OrdersContent } from "@/components/orders-content";
+import SearchInput from "@/components/search-input";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 
 export default async function Component() {
   return (
@@ -26,10 +24,7 @@ export default async function Component() {
           </div>
         </CardHeader>
         <CardContent>
-          <OrdersTable />
-          <div className="mt-8">
-            <Pagination />
-          </div>
+          <OrdersContent />
         </CardContent>
       </Card>
     </main>
