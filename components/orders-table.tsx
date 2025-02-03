@@ -1,13 +1,7 @@
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { ChevronsUpDown } from "lucide-react";
+import { Table, TableBody, TableHeader, TableRow } from "@/components/ui/table";
 import { OrderType } from "@/@types";
 import { OrderTableItem } from "./order-table-item";
+import { TableHeadItem } from "./table-head-item";
 
 interface OrdersTableProps {
   orders: OrderType[] | undefined;
@@ -20,18 +14,16 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
         <Table>
           <TableHeader>
             <TableRow className="w-full">
-              <TableHead className="table-cell">Cliente</TableHead>
-              <TableHead className="table-cell">Status</TableHead>
-              <TableHead className="table-cell cursor-pointer justify-end items-center gap-1">
-                <div className="flex items-center gap-1">
-                  Data
-                  <ChevronsUpDown className="w-4" />
-                </div>
-              </TableHead>
-              <TableHead className="text-right cursor-pointer flex justify-end items-center gap-1">
-                Valor
-                <ChevronsUpDown className="w-4" />
-              </TableHead>
+              <TableHeadItem text="Cliente" className="table-cell" />
+              <TableHeadItem text="Status" className="table-cell" />
+              <TableHeadItem
+                text="Data"
+                className="table-cell cursor-pointer justify-end items-center gap-1"
+              />
+              <TableHeadItem
+                text="Valor"
+                className="text-right cursor-pointer flex justify-end items-center gap-1"
+              />
             </TableRow>
           </TableHeader>
           <TableBody>
