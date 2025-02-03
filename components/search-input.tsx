@@ -20,7 +20,7 @@ export default function SearchInput() {
       params = setQueryParam("search", e.target.value);
     }
 
-    router.push(`?${params.toString()}`);
+    router.push(`?${params?.toString()}`);
     setSearch(e.target.value);
   }
 

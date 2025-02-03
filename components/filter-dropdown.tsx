@@ -30,7 +30,7 @@ export default function FilterDropdown() {
       params = setQueryParam("status", value);
     }
 
-    router.push(`?${params.toString()}`);
+    router.push(`?${params?.toString()}`);
     setStatus(value);
   }
 
