@@ -8,6 +8,7 @@ import { getOrderData } from "@/services";
 import { IOrderData } from "@/@types";
 import { setQueryParam } from "@/utils";
 import { Loading } from "./loading";
+import { useDebounce } from "@uidotdev/usehooks";
 
 export const OrdersContent = () => {
   const searchParams = useSearchParams();
@@ -16,8 +17,10 @@ export const OrdersContent = () => {
   const [ordersData, setOrdersData] = useState<IOrderData>();
   const [loading, setLoading] = useState(false);
 
+  const deboundeSearchParams = useDebounce(searchParams, 500);
+
   useEffect(() => {
-    if (!searchParams.has("page")) {
+    if (!deboundeSearchParams.has("page")) {
       const params = setQueryParam("page", "1");
       router.push(`?${params.toString()}`);
     }
@@ -25,7 +28,7 @@ export const OrdersContent = () => {
     async function fetchOrdersData() {
       try {
         setLoading(true);
-        const res = await getOrderData(`${searchParams}`);
+        const res = await getOrderData(`${deboundeSearchParams}`);
         setOrdersData(res);
       } finally {
         setLoading(false);
@@ -33,14 +36,14 @@ export const OrdersContent = () => {
     }
 
     fetchOrdersData();
-  }, [searchParams, router]);
+  }, [deboundeSearchParams, router]);
 
   useEffect(() => {
-    if (!ordersData?.data.length && +searchParams.get("page")! > 1) {
+    if (!ordersData?.data.length && +deboundeSearchParams.get("page")! > 1) {
       const params = setQueryParam("page", "1");
       router.push(`?${params.toString()}`);
     }
-  }, [router, ordersData?.data, searchParams]);
+  }, [router, ordersData?.data, deboundeSearchParams]);
 
   return (
     <>
